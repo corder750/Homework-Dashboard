@@ -20,6 +20,8 @@ addTask.onclick = function() {
     };
 
   tasks.push(newTask);
+  newTaskNameI.value = "";
+  newTaskDateI.value = "";
   renderTasks();
 }
 
@@ -28,7 +30,8 @@ function renderTasks() {
 
   tasks.forEach(task => {
   const div = document.createElement("div");
-  div.textContent = `${task.title} - ${task.dueDate}`;
+  const date = new Date(task.dueDate).toLocaleDateString();
+  div.textContent = `${task.title} - ${date}`;
   div.classList.add("task");
 
   const comp = document.createElement("input");
