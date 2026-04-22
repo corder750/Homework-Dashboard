@@ -1,12 +1,32 @@
 const tasks = [
-  { title: "Bio HW", dueDate: "2026-04-23", completed: false },
-  { title: "Math Worksheet", dueDate: "2026-04-25", completed: false },
-  { title: "History Map", dueDate: "2026-04-15", completed: true }
+
 ];
 
 const taskList = document.getElementById("taskList");
+const addTask = document.getElementById("addTaskBtn");
+const newTaskNameI = document.getElementById("nameInput");
+const newTaskDateI = document.getElementById("dateInput");
 
-tasks.forEach(task => {
+addTask.onclick = function() {
+  const newTaskName = newTaskNameI.value;
+  const newTaskDate = newTaskDateI.value;
+
+  if (newTaskName == "" || newTaskDate == "") {
+    return
+  }
+
+  const newTask = {
+     title: newTaskName, dueDate: newTaskDate, completed: false
+    };
+
+  tasks.push(newTask);
+  renderTasks();
+}
+
+function renderTasks() {
+  taskList.innerHTML = "";
+
+  tasks.forEach(task => {
   const div = document.createElement("div");
   div.textContent = `${task.title} - ${task.dueDate}`;
   div.classList.add("task");
@@ -31,3 +51,4 @@ tasks.forEach(task => {
   div.appendChild(comp);
   taskList.appendChild(div);
 });
+}
