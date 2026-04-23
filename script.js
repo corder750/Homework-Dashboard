@@ -28,30 +28,45 @@ addTask.onclick = function() {
 function renderTasks() {
   taskList.innerHTML = "";
 
-  tasks.forEach(task => {
-  const div = document.createElement("div");
-  const date = new Date(task.dueDate).toLocaleDateString();
-  div.textContent = `${task.title} - ${date}`;
-  div.classList.add("task");
+  tasks.forEach((task, index) => {
+    const div = document.createElement("div");
+    div.classList.add("task");
 
-  const comp = document.createElement("input");
-  comp.type = "checkbox";
-  comp.checked = task.completed;
-  
-  if (task.completed) {
-    div.classList.add("taskComplete");
-  }
+    const left = document.createElement("div");
+    left.textContent = `${task.title} - ${task.dueDate}`;
 
-  comp.onchange = function() {
-    task.completed = comp.checked;
-    if (comp.checked){
-        div.classList.add("taskComplete");
-    } else {
-        div.classList.remove("taskComplete");
+    const right = document.createElement("div");
+    right.classList.add("rightSide");
+
+    const comp = document.createElement("input");
+    comp.type = "checkbox";
+    comp.checked = task.completed;
+    comp.classList.add("checkbox");
+
+    if (task.completed) {
+      left.classList.add("taskComplete");
     }
-  }
 
-  div.appendChild(comp);
-  taskList.appendChild(div);
-});
+    comp.onchange = function () {
+      task.completed = comp.checked;
+      renderTasks();
+    };
+
+    const del = document.createElement("button");
+    del.textContent = "X";
+    del.classList.add("deleteBtn");
+
+    del.onclick = function () {
+      tasks.splice(index, 1);
+      renderTasks();
+    };
+
+    right.appendChild(comp);
+    right.appendChild(del);
+
+    div.appendChild(left);
+    div.appendChild(right);
+
+    taskList.appendChild(div);
+  });
 }
