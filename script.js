@@ -7,10 +7,8 @@ const addTask = document.getElementById("addTaskBtn");
 const newTaskNameI = document.getElementById("nameInput");
 const newTaskDateI = document.getElementById("dateInput");
 
+renderTasks();
 
-if (tasks.length === 0) {
-  taskList.innerHTML = "<p>No tasks yet!</p>";
-}
 
 addTask.onclick = function() {
   const newTaskName = newTaskNameI.value;
@@ -31,7 +29,13 @@ addTask.onclick = function() {
 }
 
 function renderTasks() {
-  taskList.innerHTML = "";
+
+    taskList.innerHTML = "";
+
+  if (tasks.length === 0) {
+  taskList.innerHTML = "<p>No tasks yet!</p>";
+  return;
+  }
 
   tasks.forEach((task, index) => {
     const div = document.createElement("div");
