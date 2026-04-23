@@ -7,6 +7,11 @@ const addTask = document.getElementById("addTaskBtn");
 const newTaskNameI = document.getElementById("nameInput");
 const newTaskDateI = document.getElementById("dateInput");
 
+
+if (tasks.length === 0) {
+  taskList.innerHTML = "<p>No tasks yet!</p>";
+}
+
 addTask.onclick = function() {
   const newTaskName = newTaskNameI.value;
   const newTaskDate = newTaskDateI.value;
